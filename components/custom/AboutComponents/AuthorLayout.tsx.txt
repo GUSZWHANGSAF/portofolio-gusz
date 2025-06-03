@@ -1,0 +1,401 @@
+"use client";
+import { useState, useEffect } from "react";
+import Image from "../../ui/Image";
+import { Teckstack } from "./AccrodionTeckstack";
+import { CertiDrawer } from "./CertiDrawer";
+import toast, { Toaster } from "react-hot-toast";
+import MainLayout from "../MainLayout";
+import { Testi } from "./Testi";
+import { AccTesti } from "./AccTesti";
+import Link from "next/link";
+import Embed from "../Main/Tiktok";
+import { TestiEnginePlus } from "./TestiEnginePlus";
+import { AccEnginePlus } from "./AccEnginePlus";
+import TestiEngine from "./TestiEngine";
+import { AccSlicing } from "./AccSlicing";
+import { TestiSlicing } from "./TestiSlicing";
+import { HiCode } from "react-icons/hi";
+
+export default function AuthorLayout({ children }: any) {
+  const [open, setOpen] = useState(true);
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const savedPassword = localStorage.getItem("savedPassword");
+    const savedTime = localStorage.getItem("savedTime");
+
+    if (savedPassword && savedTime) {
+      const currentTime = new Date().getTime();
+      const timeDifference = currentTime - parseInt(savedTime, 10);
+
+      // Check if the saved password is within 24 hours
+      if (timeDifference <= 24 * 60 * 60 * 1000 && savedPassword === "Ev9SH4") {
+        setOpen(false);
+        toast.success("Welcome back!");
+      } else {
+        localStorage.removeItem("savedPassword");
+        localStorage.removeItem("savedTime");
+      }
+    }
+  }, []);
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const staticPassword = ""; // Set your static password here
+
+    if (password === staticPassword) {
+      const currentTime = new Date().getTime();
+      localStorage.setItem("savedPassword", password);
+      localStorage.setItem("savedTime", currentTime.toString());
+
+      setOpen(false);
+      setError("");
+      toast.success("Password correct!");
+    } else {
+      toast.error("Incorrect password. Please try again.");
+      setError("Incorrect password. Please try again.");
+    }
+  };
+
+  return (
+    <>
+      <Toaster position="top-center" reverseOrder={false} />
+      {open ? (
+        <>
+          <div className="fixed inset-0 flex flex-col items-center justify-center bg-white dark:bg-black  z-40">
+            <div className="mb-10 text-center font-bold px-4">
+              <p className="text-black  dark:text-white">
+                This page contains sensitive data. To request access, please
+                contact Me or take the password on my CV:
+              </p>
+              <p className="text-blue-500 mt-3 ">ariefrahman42@gmail.com</p>
+            </div>
+            <form
+              onSubmit={handleSubmit}
+              className="flex dark:bg-black border border-black text-black  dark:text-black rounded-md p-6 flex-col items-center"
+            >
+              {/* <div className="mb-4">
+                <label
+                  htmlFor="password"
+                  className="block  text-lg font-medium "
+                >
+                  Enter Password:
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  className="mt-1 block w-64 px-3 py-2 border dark:bg-white border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                />
+              </div> */}
+              {error && <div className="text-red-500 mb-4">{error}</div>}
+              <button
+                type="submit"
+                className="px-4 py-2 hover:bg-gray-800 hover:text-white  mt-4 dark:bg-white   rounded-md shadow-sm dark:hover:bg-black border border-gray-800 font-bold focus:outline-none"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </>
+      ) : (
+        <MainLayout>
+          <div className="pt-28 px-2">
+            <div className="mb-8 flex flex-col-reverse items-center justify-between sm:flex-row sm:items-center">
+              <div className="text-center sm:text-left">
+                <h1 className="text-xl font-bold md:text-3xl lg:text-4xl mt-4">
+                  Arievf Rahman
+                </h1>
+                <h2 className="text-sm font-normal md:text-base">
+                  Front - End Developer
+                </h2>
+              </div>
+              <div>
+                <Image
+                  alt="Arievf Rahman"
+                  height={130}
+                  width={130}
+                  src="/profile.jpeg"
+                  className="rounded-full object-scale-down "
+                />
+              </div>
+            </div>
+
+            <div className="prose max-w-none pb-8 text-justify text-sm dark:prose-dark md:text-lg xl:col-span-2">
+              <p className="mt-4 text-sm">
+                Transitioning into front-end web development, driven by a strong
+                passion for technology and problem-solving. Proficient in HTML,
+                CSS, JavaScript, TypeScript, React.js, Next.js, and Tailwind
+                CSS, with hands-on experience building responsive and
+                interactive web applications. Skilled in Git and GitHub for
+                version control and collaboration. With a background in roles
+                that require teamwork, adaptability, and quick decision-making,
+                I thrive in dynamic environments and am always eager to learn
+                new technologies. Committed to continuous growth, innovation,
+                and delivering high-quality solutions in the ever-evolving tech
+                industry.
+              </p>
+
+              <h1 className="mt-4 text-2xl font-bold">Education</h1>
+              <div className="mt-4 flex flex-col">
+                <h2 className="text-lg font-bold">STMIK INDONESIA</h2>
+                <p className="text-sm mt-2">Information Systems</p>
+                <p className="text-sm mt-2">2016 - 2021</p>
+              </div>
+
+              <h1 className="mt-4 text-2xl font-bold">Experience</h1>
+              <div className="mt-4 flex  items-start">
+                <Image
+                  width={50}
+                  height={50}
+                  src="/pemkopadang.jpg"
+                  alt="pemkopadang"
+                />
+                <div className="ml-4 flex flex-col">
+                  <p className="text-lg font-bold">IT Administrator </p>
+                  <p className="text-sm">Pemerintahan Kota Padang · Magang</p>
+                  <p className="text-sm">
+                    Juli 2020 - desember 2020 · 6 months
+                  </p>
+                  <p className="text-sm">Di tempat</p>
+                </div>
+              </div>
+              <div className="xl:ml-16 mt-6  flex flex-col">
+                <p className="text-sm">
+                  Responsible for ensuring the organization and accuracy of the
+                  company’s financial reports by actively participating in the
+                  preparation and compilation of financial reports. Responsible
+                  for coordinating and preparing correspondence professionally
+                  for the internal and external needs of the company.
+                  Responsible for ensuring the integrity of employee data by
+                  creating and maintaining complete and accurate reports on
+                  personal information and supporting documents. Perform
+                  software and hardware installations as well as hardware
+                  maintenance.
+                </p>
+              </div>
+              <div className="xl:ml-16 mt-6 flex flex-col">
+                <p className="text-sm">Github :</p>
+                <Link
+                  target="_blank"
+                  className="underline text-blue-500 hover:text-blue-700"
+                  href="https://github.com/Arievf-R"
+                >
+                  https://github.com/Arievf-R
+                </Link>
+                {/* <Link
+                  target="_blank"
+                  className="underline text-blue-500 hover:text-blue-700 mt-2"
+                  href="https://demo.nusantarapedia.org"
+                >
+                  https://demo.nusantarapedia.org
+                </Link> */}
+                {/* <p className="text-sm mt-5 ">Design Figma :</p>
+                <Link
+                  target="_blank"
+                  className=" underline text-blue-500 hover:text-blue-700"
+                  href="https://www.figma.com/design/b9Zt3q1axJFzJTpWLr9B3a/Pariwisata-Universitas-Pancasila"
+                >
+                  Click to Link Figma
+                </Link> */}
+              </div>
+              {/* <p className="text-center mt-4">
+                Click on the image below to see more clearly
+              </p> */}
+              <div className=" my-20 flex w-full justify-center items-center">
+                <CertiDrawer />
+              </div>
+
+              <Teckstack />
+
+              <div className="mt-8 flex  items-start">
+                <Image
+                  width={50}
+                  height={50}
+                  src="/freelance.jpg"
+                  alt="harisenin"
+                />
+                <div className="ml-4 flex flex-col">
+                  <p className="text-lg font-bold">Full-stack Web Developer </p>
+                  <p className="text-sm">Wirid Remaja · Freelance</p>
+                  <p className="text-sm">
+                    Agustus 2020 - Oktober 2021 · 1 year
+                  </p>
+                  <p className="text-sm">Jarak jauh</p>
+                </div>
+              </div>
+              <div className="xl:ml-16 mt-6 flex flex-col">
+                <p className="text-sm">
+                  Design and code a website using the Waterfall method and SDLC
+                  with PHP, Javascript, HTML, CSS, and a MySQL database.
+                  Successfully completed the observation and design of the
+                  E-Learning program in 5 months, 20% faster than the target, by
+                  identifying user requirements and implementing solutions that
+                  improved learning efficiency by 35%. Responsible for ensuring
+                  the achievement of targets in program design and development,
+                  utilizing CodeIgniter.
+                </p>
+              </div>
+
+              <div className="xl:ml-16 mt-6 flex flex-col">
+                <p className="text-sm">Project Result :</p>
+                <Link
+                  target="_blank"
+                  className="underline text-blue-500 hover:text-blue-700"
+                  href="https://github.com/Arievf-R/SPPS"
+                >
+                  https://github.com/Arievf-R/SPPS
+                </Link>
+                {/* <Link
+                  target="_blank"
+                  className="underline text-blue-500 hover:text-blue-700 mt-2"
+                  href="https://demo.nusantarapedia.org"
+                >
+                  https://demo.nusantarapedia.org
+                </Link>
+                <p className="text-sm mt-5 ">Design Figma :</p>
+                <Link
+                  target="_blank"
+                  className=" underline text-blue-500 hover:text-blue-700"
+                  href="https://www.figma.com/design/b9Zt3q1axJFzJTpWLr9B3a/Pariwisata-Universitas-Pancasila"
+                >
+                  Click to Link Figma
+                </Link> */}
+              </div>
+              <p className="text-center mt-4">
+                Click on the image below to see more clearly
+              </p>
+              <div className=" my-20 flex w-full justify-center items-center">
+                <Testi />
+              </div>
+
+              <AccTesti />
+
+              <div className="mt-8 flex  items-start">
+                <HiCode className="w-10 h-10" />
+                <div className="ml-4 flex flex-col">
+                  <p className="text-lg font-bold">FrontEnd Web Developer </p>
+                  <p className="text-sm">Dibimbing · internship.</p>
+                  <p className="text-sm">
+                    september 2024 - Februari 2025 · 6 day
+                  </p>
+                  <p className="text-sm">Jarak jauh</p>
+                </div>
+              </div>
+              <div className="xl:ml-16 mt-6 flex flex-col">
+                <p className="text-sm">
+                  Responsible for slicing the desktop UI/UX designs from Figma
+                  into responsive web pages using React.js and Tailwind CSS.
+                  Focused on implementing pixel-perfect layouts specifically for
+                  desktop screens, ensuring cross-browser compatibility. Worked
+                  closely with designers to preserve the original design
+                  fidelity and develop reusable components tailored for desktop
+                  views.
+                </p>
+              </div>
+
+              <div className="xl:ml-16 mt-6 flex flex-col">
+                <p className="text-sm">Project Result :</p>
+                <Link
+                  target="_blank"
+                  className="underline text-blue-500 hover:text-blue-700"
+                  href="https://mini-project-shop.vercel.app/"
+                >
+                  https://mini-project-shop.vercel.app/
+                </Link>
+
+                {/* <p className="text-sm mt-5 ">Design Figma :</p>
+                <Link
+                  target="_blank"
+                  className=" underline text-blue-500 hover:text-blue-700"
+                  href="https://www.figma.com/design/KeNb8OFi8LXRK1oNgziiY8/Jobpilot---Job-Portal-Figma-UI-Template-(Community)-(Community)?node-id=1647-26119&node-type=canvas&t=m8BYP0mm2tJdluP2-0"
+                >
+                  Click to Link Figma
+                </Link> */}
+              </div>
+              <p className="text-center mt-4">
+                Click on the image below to see more clearly
+              </p>
+              <div className=" my-20 flex w-full justify-center items-center">
+                <TestiSlicing />
+              </div>
+
+              <AccSlicing />
+
+              <div className="mt-8 flex  items-start">
+                <Image
+                  width={50}
+                  height={70}
+                  className="bg-white rounded-full p-1"
+                  src="/logo-engineplus.jpg"
+                  alt="harisenin"
+                />
+                <div className="ml-4 flex flex-col">
+                  <p className="text-lg font-bold">Back End Developer </p>
+                  <p className="text-sm">Toko Online · Freelance</p>
+                  <p className="text-sm">Aug 2020 - Okt 2020 · 2 months</p>
+                  <p className="text-sm">Jarak jauh</p>
+                </div>
+              </div>
+              <div className="xl:ml-16 mt-6 flex flex-col">
+                <p className="text-sm">
+                  A computer store website that provides retail computer
+                  equipment along with store data, including reports on computer
+                  purchases and sales over a period of one month to one year. It
+                  facilitates users in selling computers and offers computer
+                  repair services. The website is built using the PHP
+                  programming language and styled with CSS
+                </p>
+              </div>
+
+              <div className="xl:ml-16 mt-6 flex flex-col">
+                <p className="text-sm">Project Result :</p>
+                <Link
+                  target="_blank"
+                  className="underline text-blue-500 hover:text-blue-700"
+                  href="https://github.com/Arievf-R/Computer-Store"
+                >
+                  https://github.com/Arievf-R/Computer-Store
+                </Link>
+                <div className="flex items-center mt-3">
+                  <p className="text-sm font-bold animate-blink">
+                    {/* Strictly Prohibited: Duplicating or Selling Code — Offenders
+                    Will Face Serious Consequences */}
+                  </p>
+                  {/* <svg
+                    className="w-4 h-4 ml-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                  >
+                    <path
+                      fill="#f50505"
+                      d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480L40 480c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"
+                    />
+                  </svg> */}
+                </div>
+              </div>
+
+              <p className="text-center mt-4">
+                Click on the image below to see more clearly
+              </p>
+              <div className=" my-20 flex w-full justify-center items-center">
+                <TestiEngine />
+              </div>
+
+              <AccEnginePlus />
+            </div>
+
+            <Embed />
+          </div>
+        </MainLayout>
+      )}
+    </>
+  );
+}

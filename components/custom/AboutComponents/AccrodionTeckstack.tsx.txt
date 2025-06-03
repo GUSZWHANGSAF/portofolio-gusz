@@ -1,0 +1,22 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
+export function Teckstack() {
+  return (
+    <Accordion type="single" collapsible className="w-full mt-3">
+      <AccordionItem value="item-1">
+        <AccordionTrigger>Tech stack Project</AccordionTrigger>
+        <AccordionContent>Microsoft Word</AccordionContent>
+        <AccordionContent>Microsoft Excel</AccordionContent>
+        <AccordionContent>Excalidraw</AccordionContent>
+        <AccordionContent>Drawio</AccordionContent>
+        <AccordionContent>Microsoft Power Point</AccordionContent>
+        <AccordionContent>Jira Management Service</AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  );
+}
