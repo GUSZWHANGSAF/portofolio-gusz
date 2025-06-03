@@ -1,0 +1,45 @@
+[
+  {
+    "id": 1,
+    "title": "RevoU",
+    "description": "Software Engineering",
+    "image": "/serti/1.jpg"
+  },
+  {
+    "id": 2,
+    "title": "PijarCamp",
+    "description": "Learn PHP",
+    "image": "/serti/2.jpg"
+  },
+  {
+    "id": 3,
+    "title": "PijarCamp",
+    "description": "Laravel Eps .2",
+    "image": "/serti/3.jpg"
+  },
+  {
+    "id": 4,
+    "title": "PijarCamp",
+    "description": "Learn Laravel",
+    "image": "/serti/4.jpg"
+  },
+
+  {
+    "id": 5,
+    "title": "Edspert.id",
+    "description": "Pivot Table",
+    "image": "/serti/6.jpg"
+  },
+  {
+    "id": 6,
+    "title": "Edspert.id",
+    "description": "Index, Match dan Lookup Excel",
+    "image": "/serti/7.jpg"
+  },
+  {
+    "id": 7,
+    "title": "Dibimbing.id",
+    "description": "Front End Developer",
+    "image": "/serti/8.png"
+  }
+]
