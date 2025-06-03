@@ -1,0 +1,103 @@
+"use client";
+import React, { useState } from "react";
+import {
+  FaLinkedin,
+  FaGithub,
+  FaInstagram,
+  FaTiktok,
+  FaYoutube,
+} from "react-icons/fa";
+import PasswordModal from "./PasswordModal"; // Adjust the import path if necessary
+
+const Footer = () => {
+  const [isLinkedInModalOpen, setLinkedInModalOpen] = useState(false);
+  const [isGithubModalOpen, setGithubModalOpen] = useState(false);
+
+  const handleLinkedInClick = () => {
+    setLinkedInModalOpen(true);
+  };
+
+  const handleGithubClick = () => {
+    setGithubModalOpen(true);
+  };
+
+  const handleLinkedInModalClose = () => {
+    setLinkedInModalOpen(false);
+  };
+
+  const handleGithubModalClose = () => {
+    setGithubModalOpen(false);
+  };
+
+  const handleLinkedInModalSubmit = () => {
+    setLinkedInModalOpen(false);
+    window.location.href = "https://www.linkedin.com/in/arief-rahman-/";
+  };
+
+  const handleGithubModalSubmit = () => {
+    setGithubModalOpen(false);
+    window.location.href = "https://github.com/Arievf-R";
+  };
+
+  return (
+    <footer className="flex w-full relative flex-col items-center p-4 bg-gray-800 text-white">
+      <div>
+        <p className="text-sm mb-6">
+          &copy; 2025 Arievf-Dev. All rights reserved.
+        </p>
+      </div>
+      <div className="flex justify-center items-center mb-4">
+        <button
+          onClick={handleLinkedInClick}
+          className="mx-4 hover:text-gray-400"
+        >
+          <FaLinkedin size={30} />
+        </button>
+        <button
+          onClick={handleGithubClick}
+          className="mx-4 hover:text-gray-400"
+        >
+          <FaGithub size={30} />
+        </button>
+        <a
+          href="https://www.instagram.com/arievf.r/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mx-4 hover:text-gray-400"
+        >
+          <FaInstagram size={30} />
+        </a>
+        <a
+          href="https://www.tiktok.com/@arivf.r"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mx-4 hover:text-gray-400"
+        >
+          <FaTiktok size={30} />
+        </a>
+        <a
+          href="https://www.youtube.com/@ariefgaming5817"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mx-4 hover:text-gray-400"
+        >
+          <FaYoutube size={30} />
+        </a>
+      </div>
+      {isLinkedInModalOpen && (
+        <PasswordModal
+          onClose={handleLinkedInModalClose}
+          onSubmit={handleLinkedInModalSubmit}
+        />
+      )}
+      {isGithubModalOpen && (
+        <PasswordModal
+          onClose={handleGithubModalClose}
+          onSubmit={handleGithubModalSubmit}
+        />
+      )}
+    </footer>
+  );
+};
+
+export default Footer;
